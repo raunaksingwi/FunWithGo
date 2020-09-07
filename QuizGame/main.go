@@ -12,7 +12,7 @@ func main() {
 	var timeLimit float64
 	var score int
 
-	flag.StringVar(&csvFilePath, "csvFile", "Resources/problems.csv", "Path to the input csv files that contains the questions for the quiz. (Default: Resources/problems.csv)")
+	flag.StringVar(&csvFilePath, "csvFile", "./Resources/problems.csv", "Path to the input csv files that contains the questions for the quiz. (Default: ./Resources/problems.csv)")
 	flag.Float64Var(&timeLimit, "timeLimit", 30, "Time bound for answering each question (in seconds)")
 	flag.Parse()
 
