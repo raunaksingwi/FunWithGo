@@ -1,44 +1,24 @@
 package main
 
 import (
-	"encoding/csv"
 	"flag"
 	"fmt"
-	"log"
-	"os"
 	"strings"
 	"time"
 )
 
-type question struct {
-	question, answer string
-}
-
 func main() {
 	var csvFilePath string
-	var timeLimit int
+	var timeLimit float64
 	var score int
 
 	flag.StringVar(&csvFilePath, "csvFile", "Resources/problems.csv", "Path to the input csv files that contains the questions for the quiz. (Default: Resources/problems.csv)")
-	flag.IntVar(&timeLimit, "timeLimit", 30, "Time bound for answering each question (in seconds)")
+	flag.Float64Var(&timeLimit, "timeLimit", 30, "Time bound for answering each question (in seconds)")
 	flag.Parse()
 
 	responseCh := make(chan string)
-	csvFile, err := os.Open(csvFilePath)
-	if err != nil {
-		log.Fatalln("Cannot open the csv, error: ", err)
-	}
 
-	// Read all problems and answers from csv file and store in the quizQuestions array.
-	reader := csv.NewReader(csvFile)
-	allQuestions, err := reader.ReadAll()
-	totalQuestions := len(allQuestions)
-	quizQuestions := make([]question, totalQuestions)
-
-	for i, question := range allQuestions {
-		quizQuestions[i].question = question[0]
-		quizQuestions[i].answer = strings.ToLower(strings.TrimSpace(question[1]))
-	}
+	quizQuestions, totalQuestions := getQuizQuestionsFromCsv(csvFilePath)
 
 	//TODO: Traverse the quizQuestions array in random order.
 	for _, question := range quizQuestions {
