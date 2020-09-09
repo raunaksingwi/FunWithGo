@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>
+            Choose your own stories
+        </title>
+    </head>
+
+    <body>
+        <h1>{{.Title}}</h1>
+
+        {{range .Story}}
+            <p>{{.}}</p>
+        {{end}}
+        <br>
+
+        <h2>Next story</h2>
+        {{range .Options}}
+            <h3>{{.Text}}</h3>
+            <a href="http://localhost:8080/{{.Arc}}">{{.Arc}}</a>
+        {{end}}
+    </body>
+</html>

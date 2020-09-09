@@ -52,11 +52,12 @@ Temporary Items
 .apdisk
 
 ### VisualStudioCode ###
+*/.vscode/*
 .vscode/*
 .vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
 *.code-workspace
 
 ### VisualStudioCode Patch ###
@@ -64,4 +65,6 @@ Temporary Items
 .history
 
 # End of https://www.toptal.com/developers/gitignore/api/go,macos,visualstudiocode
+*/__debug_bin
 QuizGame/QuizGame
+*/Choose_Your_Own_Adventure
