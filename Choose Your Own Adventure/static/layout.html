@@ -13,10 +13,8 @@
         {{end}}
         <br>
 
-        <h2>Next story</h2>
         {{range .Options}}
-            <h3>{{.Text}}</h3>
-            <a href="http://localhost:8080/{{.Arc}}">{{.Arc}}</a>
+            <a href="http://localhost:8080/{{.Arc}}"><h3>{{.Text}}</h3></a>
         {{end}}
     </body>
 </html>

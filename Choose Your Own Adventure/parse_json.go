@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"os"
 )
 
@@ -26,9 +25,9 @@ func getStoriesFromJSON(jsonFilePath string) (map[string]Story, error) {
 		return nil, err
 	}
 	defer file.Close()
-	byteValue, _ := ioutil.ReadAll(file)
 
-	err = json.Unmarshal(byteValue, &storyMap)
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&storyMap)
 	if err != nil {
 		return nil, err
 	}
