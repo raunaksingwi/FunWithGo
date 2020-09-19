@@ -8,6 +8,7 @@ import (
 )
 
 func getAllLinks(node *html.Node, nextLevel *safeMap, wg *sync.WaitGroup) {
+	defer wg.Done()
 	if node == nil {
 		return
 	}
@@ -26,17 +27,16 @@ func getAllLinks(node *html.Node, nextLevel *safeMap, wg *sync.WaitGroup) {
 		wg.Add(1)
 		go getAllLinks(n, nextLevel, wg)
 	}
-	wg.Done()
 }
 
 func traverseLinks(startPage string, maxDepth int) {
 	var wg sync.WaitGroup
 	var nextLevel safeMap
 	nextLevel.links = make(map[string]voidType)
+	nextLevel.add(startPage)
 
 	var toTraverse safeMap
 	toTraverse.links = make(map[string]voidType)
-	nextLevel.add(startPage)
 
 	for maxDepth > 0 && len(nextLevel.links) > 0 {
 		toTraverse.links = nextLevel.links
@@ -46,12 +46,15 @@ func traverseLinks(startPage string, maxDepth int) {
 			if !strings.HasPrefix(url, domain) {
 				url = domain + url
 			}
-			node, err := getRootNodeOfHTML(url)
-			if err != nil {
-				panic(err)
-			}
+
 			wg.Add(1)
-			go getAllLinks(node, &nextLevel, &wg)
+			go func(url string) {
+				node, err := getRootNodeOfHTML(url)
+				if err != nil {
+					panic(err)
+				}
+				getAllLinks(node, &nextLevel, &wg)
+			}(url)
 		}
 		wg.Wait()
 		maxDepth--
