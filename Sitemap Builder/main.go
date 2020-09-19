@@ -4,8 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"sort"
-
-	"github.com/pkg/profile"
 )
 
 var domain string
@@ -13,7 +11,6 @@ var domain string
 var seen safeMap
 
 func main() {
-	defer profile.Start(profile.CPUProfile, profile.ProfilePath(".")).Stop()
 	seen.links = make(map[string]voidType)
 	var maxDepth int
 	flag.StringVar(&domain, "rootWebsite", "https://www.calhoun.io", "address of root website to start parsing")
