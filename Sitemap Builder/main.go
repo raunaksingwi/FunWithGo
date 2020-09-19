@@ -4,40 +4,17 @@ import (
 	"flag"
 	"fmt"
 	"sort"
-	"sync"
 )
 
 var domain string
 
-type voidType struct{}
-
-var void voidType
-
-type seenStruct struct {
-	links map[string]voidType
-	mux   sync.Mutex
-}
-
-func (s *seenStruct) add(link string) {
-	s.mux.Lock()
-	s.links[link] = void
-	s.mux.Unlock()
-}
-
-func (s *seenStruct) lookUp(link string) bool {
-	s.mux.Lock()
-	defer s.mux.Unlock()
-	_, ok := s.links[link]
-	return ok
-}
-
-var seen seenStruct
+var seen safeMap
 
 func main() {
 	seen.links = make(map[string]voidType)
 	var maxDepth int
 	flag.StringVar(&domain, "rootWebsite", "", "address of root website to start parsing")
-	flag.IntVar(&maxDepth, "maxDept", 3, "Maximum depth to traverse")
+	flag.IntVar(&maxDepth, "maxDepth", 3, "Maximum depth to traverse")
 	flag.Parse()
 	seen.add(domain)
 	traverseLinks(domain, maxDepth)
