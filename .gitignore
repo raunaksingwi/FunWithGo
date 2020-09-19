@@ -64,8 +64,9 @@ Temporary Items
 # Ignore all local history of files
 .history
 
-# End of https://www.toptal.com/developers/gitignore/api/go,macos,visualstudiocode
+#Ignore binaries and temp files
 */__debug_bin
 QuizGame/QuizGame
 Choose Your Own Adventure/Choose_Your_Own_Adventure
 Sitemap Builder/sitemap-builder
+*/cpu.pprof
