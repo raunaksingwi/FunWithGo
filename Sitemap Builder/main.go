@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"sort"
 	"sync"
+
+	"github.com/pkg/profile"
 )
 
 var domain string
@@ -34,10 +36,11 @@ func (s *seenStruct) lookUp(link string) bool {
 var seen seenStruct
 
 func main() {
+	defer profile.Start(profile.CPUProfile, profile.ProfilePath(".")).Stop()
 	seen.links = make(map[string]voidType)
 	var maxDepth int
-	flag.StringVar(&domain, "rootWebsite", "", "address of root website to start parsing")
-	flag.IntVar(&maxDepth, "maxDept", 3, "Maximum depth to traverse")
+	flag.StringVar(&domain, "rootWebsite", "https://www.calhoun.io", "address of root website to start parsing")
+	flag.IntVar(&maxDepth, "maxDepth", 2, "Maximum depth to traverse")
 	flag.Parse()
 	seen.add(domain)
 	traverseLinks(domain, maxDepth)

@@ -1,9 +1,7 @@
 package main
 
 import (
-	"io/ioutil"
 	"net/http"
-	"strings"
 
 	"golang.org/x/net/html"
 )
@@ -15,11 +13,7 @@ func getRootNodeOfHTML(url string) (*html.Node, error) {
 	}
 	defer response.Body.Close()
 
-	dataInBytes, err := ioutil.ReadAll(response.Body)
-	pageContent := string(dataInBytes)
-	r := strings.NewReader(pageContent)
-
-	rootNode, err := html.Parse(r)
+	rootNode, err := html.Parse(response.Body)
 	if err != nil {
 		return nil, err
 	}
