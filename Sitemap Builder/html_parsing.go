@@ -14,7 +14,12 @@ func getAllLinks(node *html.Node, nextLevel *safeMap, wg *sync.WaitGroup) {
 	}
 
 	if node.Type == html.ElementNode && node.Data == "a" {
-		href := node.Attr[0].Val
+		var href string
+		for _, attr := range node.Attr {
+			if attr.Key == "href" {
+				href = attr.Val
+			}
+		}
 		if !seen.lookUp(href) {
 			if strings.HasPrefix(href, domain) || strings.HasPrefix(href, "/") {
 				seen.add(href)

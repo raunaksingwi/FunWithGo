@@ -70,3 +70,5 @@ QuizGame/QuizGame
 Choose Your Own Adventure/Choose_Your_Own_Adventure
 Sitemap Builder/sitemap-builder
 */cpu.pprof
+*/Resources/*.db
+CLI Task Manager/todo
