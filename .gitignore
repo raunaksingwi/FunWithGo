@@ -64,11 +64,7 @@ Temporary Items
 # Ignore all local history of files
 .history
 
-#Ignore binaries and temp files
+#Ignore DB and temp files
 */__debug_bin
-QuizGame/QuizGame
-Choose Your Own Adventure/Choose_Your_Own_Adventure
-Sitemap Builder/sitemap-builder
-*/cpu.pprof
-*/Resources/*.db
-CLI Task Manager/todo
+*/*.pprof
+*/*.db

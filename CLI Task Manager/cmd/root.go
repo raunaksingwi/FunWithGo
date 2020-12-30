@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// TODO: Write better help message for subcommands
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "todo",
